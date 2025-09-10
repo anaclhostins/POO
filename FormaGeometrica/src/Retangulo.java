@@ -1,13 +1,25 @@
 import java.awt.*;
 
 public class Retangulo {
+    private int id;
     private Ponto2D superiorEsquerdo;
     private Ponto2D inferiorDireito;
 
-    public Retangulo(Ponto2D superiorEsquerdo, Ponto2D inferiorDireito) {
-        //validarRetangulo(superiorEsquerdo, inferiorDireito);
+    public Retangulo(int id, Ponto2D superiorEsquerdo, Ponto2D inferiorDireito) {
+        setId(id);
         setInferiorDireito(inferiorDireito);
         setSuperiorEsquerdo(superiorEsquerdo);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        if(id < 0) {
+            throw new IllegalArgumentException("O ID deve ser maior que zero");
+        }
+        this.id = id;
     }
 
     public Ponto2D getSuperiorEsquerdo() {
@@ -40,24 +52,30 @@ public class Retangulo {
     }
 
     public void validarRetangulo(Ponto2D inferiorDireito, Ponto2D superiorEsquerdo) throws IllegalArgumentException {
-        if (superiorEsquerdo.getPontoX() < inferiorDireito.getPontoX()) {
+        if (!(superiorEsquerdo.getPontoX() < inferiorDireito.getPontoX())) {
             throw new IllegalArgumentException("Pontos não formam um retângulo válido");
         }
-        if (superiorEsquerdo.getPontoY() > inferiorDireito.getPontoY()) {
+        if (!(superiorEsquerdo.getPontoY() > inferiorDireito.getPontoY())) {
             throw new IllegalArgumentException("Pontos não formam um triângulo válido");
         }
     }
 
-    public double area() {
-        double altura = superiorEsquerdo.getPontoY() - inferiorDireito.getPontoY();
+    private double largura(){
         double largura = inferiorDireito.getPontoX() - superiorEsquerdo.getPontoX();
-        return altura * largura;
+        return altura();
+    }
+
+    private double altura(){
+        double altura = superiorEsquerdo.getPontoY() - inferiorDireito.getPontoY();
+        return altura;
+    }
+
+    public double area() {
+        return this.altura() * this.largura();
     }
 
     public double perimetro() {
-        double altura = superiorEsquerdo.getPontoY() - inferiorDireito.getPontoY();
-        double largura = inferiorDireito.getPontoX() - superiorEsquerdo.getPontoX();
-        return altura * 2 + largura + 2;
+        return this.altura() * 2 + this.largura() + 2;
     }
 
     public boolean contem(Ponto2D p) {
@@ -71,19 +89,12 @@ public class Retangulo {
     }
 
     public boolean isQuadrado() {
-        double altura = superiorEsquerdo.getPontoY() - inferiorDireito.getPontoY();
-        double largura = inferiorDireito.getPontoX() - superiorEsquerdo.getPontoX();
-        if (largura == altura) {
-            return true;
-        }
-            return false;
+            return largura() == altura();
     }
 
     @Override
     public String toString() {
-        return "Retangulo: " +
-                "\nSuperior Esquerdo: " + superiorEsquerdo +
+        return "\nSuperior Esquerdo: " + superiorEsquerdo +
                 "\nInferior Direito: " + inferiorDireito;
     }
 }
-
