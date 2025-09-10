@@ -23,4 +23,9 @@ public class Ponto2D {
         this.pontoY = pontoY;
     }
 
+    @Override
+    public String toString() {
+        return "\nX= " + pontoX +
+                " e Y=" + pontoY;
+    }
 }
