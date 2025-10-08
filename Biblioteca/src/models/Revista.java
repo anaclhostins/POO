@@ -1,0 +1,18 @@
+package models;
+
+import excecao.CampoVazioException;
+
+import java.time.LocalDate;
+
+public class Revista extends ItemBiblioteca{
+
+    public Revista(String nome) throws CampoVazioException {
+        super(nome, 7);
+        setMulta(7);
+    }
+
+    public Revista(String nome, LocalDate dataEmprestimo){
+        super(nome, 7, dataEmprestimo);
+        setMulta(7);
+    }
+}
